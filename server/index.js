@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const cors = require('cors');
+
+
+
 app.use(cors())
 
 app.use(bodyParser.json());
@@ -26,7 +29,10 @@ app.post("/api/code", (req, res) => {
         headers: {'Accept': 'application/json',
                     },
     };
-    axios.post(`https://github.com/login/oauth/access_token?client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}&code=${code}`,"",requestOptions)
+
+  const git_api_access_token =`https://github.com/login/oauth/access_token?client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}&code=${code}`
+
+    axios.post(git_api_access_token,"",requestOptions)
     .then((res) => {
         console.log("RESPONSE ==== : ", res.data.access_token);
         accesstoken = res.data.access_token
